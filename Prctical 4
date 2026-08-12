@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reusable UI Components - Tailwind CSS</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-br from-blue-100 via-cyan-100 to-indigo-200 min-h-screen">
+
+  <!-- ================= NAVBAR ================= -->
+
+  <nav class="bg-blue-600 text-white p-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Tanuj Shelke</h1>
+
+      <div class="space-x-6">
+        <a href="#" class="hover:text-yellow-300">Home</a>
+        <a href="#" class="hover:text-yellow-300">Services</a>
+        <a href="#" class="hover:text-yellow-300">Gallery</a>
+        <a href="#" class="hover:text-yellow-300">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ================= HEADING ================= -->
+
+  <section class="text-center py-8">
+    <h2 class="text-3xl font-bold">Latest Phones </h2>
+    <p class="text-gray-600">
+      Simple reusable cards using Tailwind CSS
+    </p>
+  </section>
+
+  <!-- ================= CARD SECTION ================= -->
+
+  <section class="max-w-6xl mx-auto px-5">
+
+    <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-3 gap-6">
+
+      <!-- Card 1 -->
+
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+
+        <img
+          src="https://mobilezon.in/wp-content/uploads/2025/11/mz17-pro-max-mini-5g-android-dual-sim-smartphone-2025-4gb-64gb.jpg"
+          class="w-xl h-60 object-cover"
+        >
+
+        <div class="p-5">
+
+          <h3 class="text-xl font-bold mb-2">
+            IPhone 17 Pro Max Mini 5G
+          </h3>
+
+          <p class="text-gray-600 mb-4">
+            I
+Phone 17 Pro Max Mini 5G Android Dual Sim Smartphone (2025) 4GB RAM, 64GB Storage, 6.1-inch Display, 48MP Camera, 5000mAh Battery
+          </p>
+
+          <button class="bg-gradient-to-r from-Orange-500 via-cyan-500 to-teal-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 hover:scale-110 hover:shadow-2xl transition-all duration-500">
+            ADD to cart
+          </button>
+<button class="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 hover:scale-110 hover:shadow-2xl transition-all duration-500">
+            Buy Now
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+
+        <img
+          src="https://media-ik.croma.com/Croma%20Assets/Communication/Mobiles/Images/319982_0_SpDM9z3Sf.png?updatedAt=1767605170198"
+          class="w-xl h-60 object-cover"
+        >
+
+        <div class="p-5">
+
+          <h3 class="text-xl font-bold mb-2">
+            Oppo Reno 12 Pro 5G
+          </h3>
+
+          <p class="text-gray-600 mb-4">
+            Oppo Reno 12 Pro 5G Android Dual Sim Smartphone (2025) 8GB RAM, 128GB Storage, 6.7-inch Display, 64MP Camera, 4500mAh Batter
+          </p>
+
+          <button class="bg-gradient-to-r from-green-500 via-lime-500 to-emerald-600 text-white font-bold px-6 py-3 rounded-full shadow-md hover:from-green-600 hover:via-lime-600 hover:to-emerald-700 hover:-translate-y-1 hover:rotate-2 hover:shadow-xl transition-all duration-700">
+            ADD to cart
+          </button>
+          <button class="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 hover:scale-110 hover:shadow-2xl transition-all duration-500">
+pay EMI          </button>
+
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+
+        <img
+          src="https://suprememobiles.in/cdn/shop/collections/Samsung_Galaxy_mobile.webp?v=1707891982"
+          class="w-xl h-60 object-cover"
+        >
+
+        <div class="p-5">
+
+          <h3 class="text-xl font-bold mb-2">
+            Samsung Galaxy S23
+          </h3>
+
+          <p class="text-gray-600 mb-4">
+            Samsung Galaxy S23 Android Dual Sim Smartphone (2025) 12GB RAM, 256GB Storage, 6.8-inch Display, 50MP Camera, 5000mAh Battery
+          </p>
+
+          <button class="bg-gradient-to-r from-purple-600 via-pink-500 to-rose-500 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:from-purple-700 hover:via-pink-600 hover:to-rose-600 hover:scale-105 hover:animate-pulse hover:shadow-2xl transition-all duration-1000">
+            Buy Now
+          </button>
+ <button class="bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:from-blue-600 hover:via-cyan-600 hover:to-teal-600 hover:scale-110 hover:shadow-2xl transition-all duration-500">
+pay EMI          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+ <!-- ================= FOOTER ================= -->
+
+<footer class="mt-10 bg-gradient-to-r from-gray-900 via-slate-800 to-black text-white">
+
+  <div class="max-w-6xl mx-auto py-8 text-center">
+
+    <h2 class="text-2xl font-bold">
+      SB Jain Institute of Technology
+    </h2>
+
+    <p class="mt-2 text-gray-300">
+      Learning Modern Web Development using Tailwind CSS
+    </p>
+
+    <p class="mt-4 text-gray-400">
+      © 2026 All Rights Reserved
+    </p>
+
+  </div>
+
+</footer>
+
+<!-- ================= CLASS TABLE ================= -->
+
+<section class="max-w-6xl mx-auto my-10 px-5">
+
+  <h2 class="text-3xl font-bold text-center mb-6">
+    Tailwind CSS Classes Used
+  </h2>
+
+  
+
+     
+
+      
+</section>
+
+</body>
+</html>
