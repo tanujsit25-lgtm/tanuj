@@ -3,90 +3,842 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Innovision 2026</title>
 
+    <title>ScholarCheck | Scholarship Eligibility</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #07111f;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .heading-font {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* HERO BACKGROUND */
+        .hero {
+            min-height: 100vh;
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(3, 10, 25, 0.96),
+                    rgba(8, 30, 55, 0.82),
+                    rgba(30, 20, 70, 0.90)
+                ),
+                url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=2000&q=90");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* NAVBAR */
+        .glass-nav {
+            background: rgba(7, 17, 31, 0.65);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* GLASS CARD */
+        .glass {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+        }
+
+        .glass:hover {
+            border-color: rgba(129,140,248,0.35);
+        }
+
+        /* GRADIENT TEXT */
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* FLOATING CIRCLES */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: .25;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: #6366f1;
+            top: 10%;
+            left: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 250px;
+            height: 250px;
+            background: #ec4899;
+            bottom: 5%;
+            right: -70px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-35px);
+            }
+        }
+
+        /* INPUTS */
+        .custom-input {
+            background: rgba(255,255,255,0.07) !important;
+            color: white !important;
+            border: 1px solid rgba(255,255,255,0.13) !important;
+            border-radius: 14px !important;
+            padding: 13px 15px !important;
+        }
+
+        .custom-input:focus {
+            background: rgba(255,255,255,0.1) !important;
+            border-color: #818cf8 !important;
+            box-shadow: 0 0 0 4px rgba(99,102,241,.15) !important;
+        }
+
+        .custom-input option {
+            background: #101827;
+            color: white;
+        }
+
+        /* CHECK BUTTON */
+        .check-btn {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 14px;
+            padding: 15px;
+            color: white;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .check-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(99,102,241,.35);
+        }
+
+        /* STAT CARDS */
+        .stat-card {
+            transition: .3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-7px);
+        }
+
+        /* RESULT */
+        #resultBox {
+            display: none;
+        }
+
+        .eligible {
+            border: 1px solid rgba(34,197,94,.4);
+            background: rgba(34,197,94,.08);
+        }
+
+        .not-eligible {
+            border: 1px solid rgba(239,68,68,.4);
+            background: rgba(239,68,68,.08);
+        }
+
+        /* STEP */
+        .step {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,.08);
+            border: 1px solid rgba(255,255,255,.15);
+            font-weight: 700;
+        }
+
+        .step.active {
+            background: linear-gradient(135deg,#6366f1,#8b5cf6);
+            border-color: transparent;
+        }
+
+        /* MOBILE */
+        @media(max-width:768px) {
+            .hero {
+                background-attachment: scroll;
+            }
+
+            .display-title {
+                font-size: 2.5rem !important;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen p-6">
 
-<div class="max-w-5xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+<body>
 
-    <!-- Banner -->
-    <div class="bg-gradient-to-r from-orange-500 to-red-600 text-white p-10 text-center">
-        <h1 class="text-5xl font-extrabold uppercase">Innovision 2026</h1>
-        <p class="mt-3 text-xl">Annual Technical Festival</p>
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark glass-nav fixed-top">
+    <div class="container py-2">
+
+        <a class="navbar-brand fw-bold heading-font fs-4" href="#">
+            🎓 Scholar<span class="text-indigo-400">Check</span>
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto gap-lg-3">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#checker">Eligibility</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#scholarships">Scholarships</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section id="home" class="hero relative flex items-center pt-28 pb-16">
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container relative z-10">
+
+        <div class="row align-items-center g-5">
+
+            <!-- LEFT -->
+
+            <div class="col-lg-6">
+
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                            bg-indigo-500/10 border border-indigo-400/20
+                            text-indigo-300 text-sm mb-4">
+
+                    <span class="w-2 h-2 rounded-full bg-green-400"></span>
+
+                    Digital Scholarship Portal
+
+                </div>
+
+                <h1 class="heading-font display-title text-5xl md:text-7xl
+                           font-extrabold leading-tight mb-5">
+
+                    Find Your
+                    <span class="gradient-text">Scholarship</span>
+
+                </h1>
+
+                <p class="text-slate-300 text-lg leading-8 max-w-xl mb-7">
+
+                    Check your scholarship eligibility instantly.
+                    Enter your academic and financial details and
+                    discover which scholarship opportunities match
+                    your profile.
+
+                </p>
+
+                <div class="flex flex-wrap gap-3 mb-8">
+
+                    <a href="#checker"
+                       class="btn check-btn px-5 py-3">
+                        Check Eligibility →
+                    </a>
+
+                    <a href="#scholarships"
+                       class="btn btn-outline-light rounded-xl px-5 py-3">
+                        Explore Scholarships
+                    </a>
+
+                </div>
+
+                <!-- FEATURES -->
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+                    <div class="glass rounded-2xl p-4 stat-card">
+                        <div class="text-2xl mb-2">⚡</div>
+                        <p class="text-sm text-slate-400 mb-1">Fast</p>
+                        <h6 class="font-bold">Instant Result</h6>
+                    </div>
+
+                    <div class="glass rounded-2xl p-4 stat-card">
+                        <div class="text-2xl mb-2">🔒</div>
+                        <p class="text-sm text-slate-400 mb-1">Secure</p>
+                        <h6 class="font-bold">Private Data</h6>
+                    </div>
+
+                    <div class="glass rounded-2xl p-4 stat-card">
+                        <div class="text-2xl mb-2">🎯</div>
+                        <p class="text-sm text-slate-400 mb-1">Smart</p>
+                        <h6 class="font-bold">Accurate Check</h6>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT FORM -->
+
+            <div class="col-lg-6" id="checker">
+
+                <div class="glass rounded-3xl p-4 md:p-6">
+
+                    <div class="flex items-center justify-between mb-5">
+
+                        <div>
+                            <p class="text-indigo-300 text-sm font-semibold mb-1">
+                                SCHOLARSHIP CHECKER
+                            </p>
+
+                            <h2 class="heading-font text-2xl font-bold">
+                                Check Eligibility
+                            </h2>
+                        </div>
+
+                        <div class="text-3xl">🎓</div>
+
+                    </div>
+
+
+                    <!-- PROGRESS -->
+
+                    <div class="flex items-center gap-2 mb-6">
+
+                        <div class="step active">1</div>
+
+                        <div class="h-px bg-white/10 flex-1"></div>
+
+                        <div class="step active">2</div>
+
+                        <div class="h-px bg-white/10 flex-1"></div>
+
+                        <div class="step active">3</div>
+
+                    </div>
+
+
+                    <form id="scholarshipForm">
+
+                        <!-- NAME -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label text-slate-300">
+                                Student Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="studentName"
+                                class="form-control custom-input"
+                                placeholder="Enter your full name"
+                                required>
+
+                        </div>
+
+
+                        <!-- AGE + CATEGORY -->
+
+                        <div class="row g-3 mb-4">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label text-slate-300">
+                                    Age
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="age"
+                                    class="form-control custom-input"
+                                    placeholder="e.g. 19"
+                                    min="10"
+                                    max="40"
+                                    required>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <label class="form-label text-slate-300">
+                                    Category
+                                </label>
+
+                                <select id="category"
+                                        class="form-select custom-input"
+                                        required>
+
+                                    <option value="">Select</option>
+                                    <option value="open">Open / General</option>
+                                    <option value="obc">OBC</option>
+                                    <option value="sc">SC</option>
+                                    <option value="st">ST</option>
+                                    <option value="ews">EWS</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- COURSE -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label text-slate-300">
+                                Education Level
+                            </label>
+
+                            <select id="education"
+                                    class="form-select custom-input"
+                                    required>
+
+                                <option value="">Select education level</option>
+                                <option value="school">School</option>
+                                <option value="diploma">Diploma</option>
+                                <option value="ug">Undergraduate / B.Tech</option>
+                                <option value="pg">Postgraduate</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- PERCENTAGE -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label text-slate-300">
+                                Academic Percentage
+                            </label>
+
+                            <div class="relative">
+
+                                <input
+                                    type="number"
+                                    id="percentage"
+                                    class="form-control custom-input"
+                                    placeholder="Enter percentage"
+                                    min="0"
+                                    max="100"
+                                    step="0.01"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- FAMILY INCOME -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label text-slate-300">
+                                Annual Family Income
+                            </label>
+
+                            <select id="income"
+                                    class="form-select custom-input"
+                                    required>
+
+                                <option value="">Select income range</option>
+                                <option value="100000">Below ₹1 Lakh</option>
+                                <option value="250000">₹1 – ₹2.5 Lakh</option>
+                                <option value="500000">₹2.5 – ₹5 Lakh</option>
+                                <option value="800000">₹5 – ₹8 Lakh</option>
+                                <option value="1000000">Above ₹8 Lakh</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- RESIDENCY -->
+
+                        <div class="mb-5">
+
+                            <label class="form-label text-slate-300">
+                                State
+                            </label>
+
+                            <select id="state"
+                                    class="form-select custom-input"
+                                    required>
+
+                                <option value="">Select state</option>
+                                <option>Maharashtra</option>
+                                <option>Madhya Pradesh</option>
+                                <option>Gujarat</option>
+                                <option>Rajasthan</option>
+                                <option>Other</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- BUTTON -->
+
+                        <button type="submit"
+                                class="check-btn w-100">
+
+                            🔍 Check My Eligibility
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- RESULT -->
+
+                    <div id="resultBox" class="mt-5 rounded-2xl p-5">
+
+                        <div class="flex items-start gap-4">
+
+                            <div id="resultIcon"
+                                 class="text-4xl">
+                                🎉
+                            </div>
+
+                            <div>
+
+                                <h3 id="resultTitle"
+                                    class="heading-font text-xl font-bold">
+                                    Eligibility Result
+                                </h3>
+
+                                <p id="resultMessage"
+                                   class="text-slate-300 mt-2">
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div id="scholarshipName"
+                             class="mt-4 font-bold text-lg">
+                        </div>
+
+                        <div class="mt-4">
+
+                            <div class="flex justify-between text-sm mb-2">
+                                <span>Eligibility Score</span>
+                                <span id="scoreText">0%</span>
+                            </div>
+
+                            <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+
+                                <div id="scoreBar"
+                                     class="h-full rounded-full transition-all duration-1000"
+                                     style="width:0%">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <button onclick="resetForm()"
+                                class="btn btn-outline-light rounded-xl mt-4">
+                            Check Again
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- Main Content -->
-    <div class="grid md:grid-cols-2">
+</section>
 
-        <!-- Left Side -->
-        <div class="bg-orange-50 p-8">
-            <h2 class="text-3xl font-bold text-red-600 mb-4">
-                Join the Celebration!
+
+<!-- ================= SCHOLARSHIPS ================= -->
+
+<section id="scholarships"
+         class="py-24 bg-slate-950">
+
+    <div class="container">
+
+        <div class="text-center mb-12">
+
+            <span class="text-indigo-400 font-semibold">
+                SCHOLARSHIP CATEGORIES
+            </span>
+
+            <h2 class="heading-font text-4xl font-bold mt-2">
+                Opportunities For Every Student
             </h2>
 
-            <p class="text-gray-700 leading-8">
-                We warmly welcome all students and faculty members to participate
-                in our Annual Technical Festival. Experience innovation,
-                creativity, teamwork, and exciting competitions.
+            <p class="text-slate-400 mt-3">
+                Find financial support based on your academic profile.
             </p>
 
-            <div class="mt-8 space-y-4">
-                <div class="bg-white p-4 rounded-lg shadow border-l-4 border-orange-500">
-                    📅 <b>Date:</b> 20 September 2026
-                </div>
-
-                <div class="bg-white p-4 rounded-lg shadow border-l-4 border-blue-500">
-                    ⏰ <b>Time:</b> 9:30 AM
-                </div>
-
-                <div class="bg-white p-4 rounded-lg shadow border-l-4 border-green-500">
-                    📍 <b>Venue:</b> College Auditorium
-                </div>
-            </div>
         </div>
 
-        <!-- Right Side -->
-        <div class="bg-gray-900 text-white p-8">
 
-            <h2 class="text-3xl font-bold text-yellow-400 mb-6">
-                Highlights
+        <div class="row g-4">
+
+            <!-- CARD 1 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="glass rounded-3xl p-6 h-100 stat-card">
+
+                    <div class="text-4xl mb-5">🏆</div>
+
+                    <h3 class="text-xl font-bold mb-3">
+                        Merit Scholarship
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-6">
+                        Designed for students with strong academic
+                        performance and excellent marks.
+                    </p>
+
+                    <div class="mt-5 text-indigo-300 text-sm font-semibold">
+                        Academic Based →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 2 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="glass rounded-3xl p-6 h-100 stat-card">
+
+                    <div class="text-4xl mb-5">💰</div>
+
+                    <h3 class="text-xl font-bold mb-3">
+                        Need Based
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-6">
+                        Financial assistance for students from
+                        lower-income families.
+                    </p>
+
+                    <div class="mt-5 text-indigo-300 text-sm font-semibold">
+                        Income Based →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 3 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="glass rounded-3xl p-6 h-100 stat-card">
+
+                    <div class="text-4xl mb-5">🌟</div>
+
+                    <h3 class="text-xl font-bold mb-3">
+                        Category Based
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-6">
+                        Scholarships supporting eligible reserved
+                        category students.
+                    </p>
+
+                    <div class="mt-5 text-indigo-300 text-sm font-semibold">
+                        Category Based →
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 4 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="glass rounded-3xl p-6 h-100 stat-card">
+
+                    <div class="text-4xl mb-5">🎓</div>
+
+                    <h3 class="text-xl font-bold mb-3">
+                        Higher Education
+                    </h3>
+
+                    <p class="text-slate-400 text-sm leading-6">
+                        Financial support for undergraduate and
+                        postgraduate students.
+                    </p>
+
+                    <div class="mt-5 text-indigo-300 text-sm font-semibold">
+                        College Based →
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section class="py-24 relative overflow-hidden"
+         style="
+         background:
+         linear-gradient(rgba(8,15,30,.93),rgba(8,15,30,.96)),
+         url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=2000&q=85');
+         background-size:cover;
+         background-position:center;
+         ">
+
+    <div class="container">
+
+        <div class="text-center mb-14">
+
+            <span class="text-indigo-400 font-semibold">
+                SIMPLE PROCESS
+            </span>
+
+            <h2 class="heading-font text-4xl font-bold mt-2">
+                How It Works
             </h2>
 
-            <div class="space-y-4">
+        </div>
 
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    💻 Coding Contest
-                </div>
 
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    🤖 Robotics Competition
-                </div>
+        <div class="row g-5 text-center">
 
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    🚀 Startup Ideas Expo
-                </div>
+            <div class="col-md-4">
 
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    🧠 Technical Quiz
-                </div>
+                <div class="glass rounded-3xl p-7 h-100">
 
-                <div class="bg-gray-800 p-4 rounded-lg">
-                    🎵 Cultural Evening
+                    <div class="step active mx-auto mb-5">
+                        1
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-3">
+                        Enter Details
+                    </h3>
+
+                    <p class="text-slate-400">
+                        Provide your academic, financial and
+                        demographic information.
+                    </p>
+
                 </div>
 
             </div>
 
-            <div class="mt-10 flex gap-4">
 
-                <button class="bg-yellow-400 text-black px-6 py-3 rounded-lg font-bold hover:bg-yellow-300">
-                    Register
-                </button>
+            <div class="col-md-4">
 
-                <button class="border-2 border-yellow-400 px-6 py-3 rounded-lg hover:bg-yellow-400 hover:text-black">
-                    Learn More
-                </button>
+                <div class="glass rounded-3xl p-7 h-100">
+
+                    <div class="step active mx-auto mb-5">
+                        2
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-3">
+                        Smart Verification
+                    </h3>
+
+                    <p class="text-slate-400">
+                        Our JavaScript eligibility engine compares
+                        your information with scholarship criteria.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="glass rounded-3xl p-7 h-100">
+
+                    <div class="step active mx-auto mb-5">
+                        3
+                    </div>
+
+                    <h3 class="text-xl font-bold mb-3">
+                        Get Your Result
+                    </h3>
+
+                    <p class="text-slate-400">
+                        Instantly see whether your profile meets
+                        the selected scholarship criteria.
+                    </p>
+
+                </div>
 
             </div>
 
@@ -94,17 +846,363 @@
 
     </div>
 
-    <!-- Footer -->
-    <div class="bg-gray-200 text-center p-5">
-        <h3 class="text-xl font-bold text-red-600">
-            Department of Information Technology
-        </h3>
-        <p class="text-gray-600">
-            "Innovate Today, Lead Tomorrow"
-        </p>
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about" class="py-24 bg-slate-950">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6">
+
+                <img
+                    src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=85"
+                    class="w-100 rounded-3xl shadow-2xl"
+                    alt="Students">
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <span class="text-indigo-400 font-semibold">
+                    ABOUT SCHOLARCHECK
+                </span>
+
+                <h2 class="heading-font text-4xl font-bold mt-3 mb-5">
+                    Making Scholarship Discovery
+                    <span class="gradient-text">
+                        Simple
+                    </span>
+                </h2>
+
+                <p class="text-slate-400 leading-8">
+                    ScholarCheck is a digital student scholarship
+                    eligibility system designed to simplify the
+                    scholarship discovery process.
+                </p>
+
+                <p class="text-slate-400 leading-8 mt-4">
+                    Students can enter their academic and financial
+                    details and receive an instant eligibility result.
+                </p>
+
+                <div class="grid grid-cols-2 gap-4 mt-6">
+
+                    <div class="glass rounded-2xl p-5">
+                        <h3 class="text-2xl font-bold">100%</h3>
+                        <p class="text-slate-400 text-sm">
+                            Digital Process
+                        </p>
+                    </div>
+
+                    <div class="glass rounded-2xl p-5">
+                        <h3 class="text-2xl font-bold">24/7</h3>
+                        <p class="text-slate-400 text-sm">
+                            Availability
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-</div>
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="border-t border-white/10 bg-black py-8">
+
+    <div class="container">
+
+        <div class="flex flex-col md:flex-row
+                    justify-between items-center gap-4">
+
+            <div>
+
+                <h3 class="heading-font font-bold text-lg">
+                    🎓 ScholarCheck
+                </h3>
+
+                <p class="text-slate-500 text-sm mt-1">
+                    Digital Student Scholarship Eligibility Checker
+                </p>
+
+            </div>
+
+            <p class="text-slate-500 text-sm">
+                © 2026 ScholarCheck. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const form = document.getElementById("scholarshipForm");
+const resultBox = document.getElementById("resultBox");
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    // GET VALUES
+
+    const name =
+        document.getElementById("studentName").value.trim();
+
+    const age =
+        Number(document.getElementById("age").value);
+
+    const category =
+        document.getElementById("category").value;
+
+    const education =
+        document.getElementById("education").value;
+
+    const percentage =
+        Number(document.getElementById("percentage").value);
+
+    const income =
+        Number(document.getElementById("income").value);
+
+    const state =
+        document.getElementById("state").value;
+
+
+    // VALIDATION
+
+    if (!name || !age || !category ||
+        !education || isNaN(percentage) ||
+        !income || !state) {
+
+        alert("Please fill all the fields.");
+        return;
+    }
+
+
+    if (percentage < 0 || percentage > 100) {
+
+        alert("Percentage must be between 0 and 100.");
+        return;
+    }
+
+
+    // ELIGIBILITY SCORE
+
+    let score = 0;
+
+
+    // Academic criteria
+
+    if (percentage >= 85) {
+        score += 35;
+    }
+    else if (percentage >= 75) {
+        score += 28;
+    }
+    else if (percentage >= 60) {
+        score += 20;
+    }
+    else if (percentage >= 50) {
+        score += 10;
+    }
+
+
+    // Income criteria
+
+    if (income <= 100000) {
+        score += 35;
+    }
+    else if (income <= 250000) {
+        score += 30;
+    }
+    else if (income <= 500000) {
+        score += 20;
+    }
+    else if (income <= 800000) {
+        score += 10;
+    }
+
+
+    // Category criteria
+
+    if (
+        category === "sc" ||
+        category === "st" ||
+        category === "obc" ||
+        category === "ews"
+    ) {
+        score += 20;
+    }
+    else {
+        score += 10;
+    }
+
+
+    // Education criteria
+
+    if (education === "ug" || education === "pg") {
+        score += 10;
+    }
+    else {
+        score += 5;
+    }
+
+
+    // Maximum can exceed 100 slightly,
+    // so keep score within 100.
+
+    score = Math.min(score, 100);
+
+
+    // RESULT ELEMENTS
+
+    const resultTitle =
+        document.getElementById("resultTitle");
+
+    const resultMessage =
+        document.getElementById("resultMessage");
+
+    const scholarshipName =
+        document.getElementById("scholarshipName");
+
+    const scoreBar =
+        document.getElementById("scoreBar");
+
+    const scoreText =
+        document.getElementById("scoreText");
+
+    const resultIcon =
+        document.getElementById("resultIcon");
+
+
+    // SHOW RESULT
+
+    resultBox.style.display = "block";
+
+    resultBox.classList.remove(
+        "eligible",
+        "not-eligible"
+    );
+
+
+    // ELIGIBLE
+
+    if (score >= 60) {
+
+        resultBox.classList.add("eligible");
+
+        resultIcon.innerHTML = "🎉";
+
+        resultTitle.innerText =
+            `Congratulations, ${name}!`;
+
+        resultMessage.innerText =
+            "Based on the information provided, you appear to meet the basic criteria for scholarship consideration.";
+
+        scholarshipName.innerText =
+            "Recommended: Merit + Need Based Scholarship";
+
+    }
+
+    // PARTIALLY ELIGIBLE
+
+    else if (score >= 45) {
+
+        resultBox.classList.add("eligible");
+
+        resultIcon.innerHTML = "⭐";
+
+        resultTitle.innerText =
+            `Good News, ${name}!`;
+
+        resultMessage.innerText =
+            "Your profile may qualify for selected scholarship opportunities. Check the official scholarship rules before applying.";
+
+        scholarshipName.innerText =
+            "Recommended: Need-Based Scholarship";
+
+    }
+
+    // NOT ELIGIBLE
+
+    else {
+
+        resultBox.classList.add("not-eligible");
+
+        resultIcon.innerHTML = "📋";
+
+        resultTitle.innerText =
+            `Hello ${name}`;
+
+        resultMessage.innerText =
+            "Your current profile does not meet the basic criteria used by this demo checker.";
+
+        scholarshipName.innerText =
+            "Tip: Explore scholarships with different eligibility criteria.";
+
+    }
+
+
+    // ANIMATE SCORE
+
+    scoreText.innerText = score + "%";
+
+    scoreBar.style.width = "0%";
+
+    setTimeout(() => {
+        scoreBar.style.width = score + "%";
+    }, 100);
+
+
+    // SCROLL TO RESULT
+
+    setTimeout(() => {
+
+        resultBox.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 150);
+
+});
+
+
+function resetForm() {
+
+    form.reset();
+
+    resultBox.style.display = "none";
+
+    window.scrollTo({
+        top: document.getElementById("checker").offsetTop - 100,
+        behavior: "smooth"
+    });
+
+}
+
+</script>
 
 </body>
 </html>
