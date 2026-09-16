@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive FAQ</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-r from-pink-500 to-red-600 flex items-center justify-center">
+
+    <div class="bg-pink-200 p-8 rounded-xl shadow-lg w-96">
+
+        <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">
+            Student Help Portal
+        </h2>
+
+        <p class="text-center mb-5 text-gray-600">
+            Frequently Asked Questions
+        </p>
+
+        <!-- FAQ 1 -->
+        <div class="mb-3">
+            <button class="question w-full text-left p-3 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded">
+                What is your course name?
+            </button>
+
+            <p class="answer hidden p-3 bg-blue-300">
+          My course name is web fundamentals and basic fronted design.
+            </p>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="mb-3">
+            <button class="question w-full text-left p-3 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded">
+              What are the timing of lecture?
+            </button>
+
+            <p class="answer hidden p-3 bg-blue-300">
+                Lecture timing are from 10:30 AM to 11:30 AM .
+            </p>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="mb-3">
+            <button class="question w-full text-left p-3 bg-gradient-to-r from-pink-500 to-red-500 text-white rounded">
+             How many lecture are there in a week?
+            </button>
+
+            <p class="answer hidden p-3 bg-blue-300">
+               There are two lecture in a week.
+            </p>
+        </div>
+
+    </div>
+
+
+    <script>
+
+        // Get all questions
+        let questions = document.querySelectorAll(".question");
+
+        // Add click event to each question
+        questions.forEach(function(question) {
+
+            question.addEventListener("click", function() {
+
+                // Get the answer
+                let answer = question.nextElementSibling;
+
+                // Show / Hide answer
+                answer.classList.toggle("hidden");
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
