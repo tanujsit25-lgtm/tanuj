@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Daily Planner</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #dbeafe, #fce7f3, #dcfce7);
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid #8b5cf6;
+        }
+
+        .heading {
+            background: linear-gradient(90deg, #7c3aed, #ec4899);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #7c3aed, #ec4899);
+            transition: 0.3s;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .task-item {
+            background: linear-gradient(90deg, #eff6ff, #fdf2f8);
+            border-left: 5px solid #8b5cf6;
+            transition: 0.3s;
+        }
+
+        .task-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+        }
+
+        .clear-btn {
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #ede9fe, #fce7f3);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-5">
+
+    <div class="main-card w-full max-w-xl rounded-3xl shadow-2xl p-6">
+
+        <!-- Heading -->
+        <div class="text-center mb-6">
+
+            <div class="text-5xl mb-2">
+                📝
+            </div>
+
+            <h1 class="heading text-4xl font-extrabold">
+                My Daily Planner
+            </h1>
+
+            <p class="text-purple-600 font-medium mt-2">
+                Plan • Complete • Achieve
+            </p>
+
+        </div>
+
+
+        <!-- Input Section -->
+        <div class="flex gap-2 mb-4">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="✏️ Enter your task..."
+                class="flex-1 border-2 border-purple-300 rounded-xl
+                       px-4 py-3 outline-none
+                       focus:border-pink-500 focus:ring-2
+                       focus:ring-pink-200"
+            >
+
+            <button
+                onclick="addTask()"
+                class="add-btn text-white font-bold px-5 py-3
+                       rounded-xl"
+            >
+                + Add
+            </button>
+
+        </div>
+
+
+        <!-- Error Message -->
+        <p id="message"
+           class="text-red-500 text-sm font-semibold mb-3">
+        </p>
+
+
+        <!-- Task List -->
+        <div id="taskList" class="space-y-3"></div>
+
+
+        <!-- Statistics -->
+        <div class="grid grid-cols-2 gap-3 mt-6">
+
+            <div class="stat-box rounded-xl p-3 text-center">
+                <p class="text-purple-600 font-semibold">
+                    Total Tasks
+                </p>
+
+                <p id="totalTasks"
+                   class="text-2xl font-bold text-purple-800">
+                    0
+                </p>
+            </div>
+
+
+            <div class="stat-box rounded-xl p-3 text-center">
+                <p class="text-pink-600 font-semibold">
+                    Completed
+                </p>
+
+                <p id="completedTasks"
+                   class="text-2xl font-bold text-pink-800">
+                    0
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Clear Button -->
+        <button
+            onclick="clearCompleted()"
+            class="clear-btn text-white font-semibold
+                   w-full mt-4 py-3 rounded-xl
+                   hover:scale-[1.02] transition"
+        >
+            🗑 Clear Completed Tasks
+        </button>
+
+
+        <!-- Footer -->
+        <p class="text-center text-gray-400 text-xs mt-5">
+            Personal To-Do List | Web Development Lab
+        </p>
+
+    </div>
+
+
+    <script>
+
+        // Store all tasks
+        let tasks = [];
+
+
+        // Add Task
+        function addTask() {
+
+            const input =
+                document.getElementById("taskInput");
+
+            const taskText =
+                input.value.trim();
+
+            const message =
+                document.getElementById("message");
+
+            message.textContent = "";
+
+
+            // Empty task validation
+            if (taskText === "") {
+
+                message.textContent =
+                    "⚠️ Please enter a task.";
+
+                return;
+            }
+
+
+            // Create task object
+            const task = {
+
+                id: Date.now(),
+
+                text: taskText,
+
+                completed: false
+
+            };
+
+
+            tasks.push(task);
+
+            input.value = "";
+
+            displayTasks();
+        }
+
+
+        // Display Tasks
+        function displayTasks() {
+
+            const list =
+                document.getElementById("taskList");
+
+            list.innerHTML = "";
+
+
+            tasks.forEach(function(task) {
+
+                const taskBox =
+                    document.createElement("div");
+
+                taskBox.className =
+                    "task-item flex items-center " +
+                    "justify-between gap-3 p-3 " +
+                    "rounded-xl";
+
+
+                // Left side
+                const leftSide =
+                    document.createElement("div");
+
+                leftSide.className =
+                    "flex items-center gap-3 flex-1";
+
+
+                // Checkbox
+                const checkbox =
+                    document.createElement("input");
+
+                checkbox.type = "checkbox";
+
+                checkbox.checked =
+                    task.completed;
+
+                checkbox.className =
+                    "w-5 h-5 accent-purple-600 cursor-pointer";
+
+
+                checkbox.onclick = function() {
+
+                    toggleTask(task.id);
+
+                };
+
+
+                // Task text
+                const text =
+                    document.createElement("span");
+
+                text.textContent =
+                    task.text;
+
+                text.className =
+                    "font-medium text-gray-700";
+
+
+                if (task.completed) {
+
+                    text.classList.add(
+                        "line-through",
+                        "text-gray-400"
+                    );
+
+                }
+
+
+                leftSide.appendChild(checkbox);
+
+                leftSide.appendChild(text);
+
+
+                // Delete Button
+                const deleteButton =
+                    document.createElement("button");
+
+                deleteButton.textContent =
+                    "Delete";
+
+                deleteButton.className =
+                    "delete-btn text-white px-3 py-2 " +
+                    "rounded-lg text-sm font-semibold";
+
+
+                deleteButton.onclick =
+                    function() {
+
+                        deleteTask(task.id);
+
+                    };
+
+
+                taskBox.appendChild(leftSide);
+
+                taskBox.appendChild(deleteButton);
+
+                list.appendChild(taskBox);
+
+            });
+
+
+            updateCount();
+        }
+
+
+        // Complete / Uncomplete Task
+        function toggleTask(id) {
+
+            tasks.forEach(function(task) {
+
+                if (task.id === id) {
+
+                    task.completed =
+                        !task.completed;
+
+                }
+
+            });
+
+            displayTasks();
+        }
+
+
+        // Delete Task
+        function deleteTask(id) {
+
+            tasks =
+                tasks.filter(function(task) {
+
+                    return task.id !== id;
+
+                });
+
+            displayTasks();
+        }
+
+
+        // Clear Completed Tasks
+        function clearCompleted() {
+
+            tasks =
+                tasks.filter(function(task) {
+
+                    return task.completed === false;
+
+                });
+
+            displayTasks();
+        }
+
+
+        // Update Counters
+        function updateCount() {
+
+            const total =
+                tasks.length;
+
+            const completed =
+                tasks.filter(function(task) {
+
+                    return task.completed;
+
+                }).length;
+
+
+            document.getElementById("totalTasks")
+                .textContent = total;
+
+            document.getElementById("completedTasks")
+                .textContent = completed;
+        }
+
+
+        // Enter key support
+        document.getElementById("taskInput")
+            .addEventListener("keydown",
+                function(event) {
+
+                    if (event.key === "Enter") {
+
+                        addTask();
+
+                    }
+
+                });
+
+    </script>
+
+</body>
+</html>
